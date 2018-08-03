@@ -23,22 +23,43 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		this.cellsPerRow = cpr;
 	
 		//calculate the cellSize
-	
+	cellSize = 2;
 		
 		//initialize the cells array
-		
+		cells = new Cell[h][w];
 		
 		//initialize each cell in the array
-		
+		for(int i = 0; i<cells.length; i++) {
+			for(int j = 0; j<cells[i].length; j++) {
+				cells[i][j] = new Cell(cellSize*j, cellSize*i, cellSize);
+			}
+		}
 	}
 	
 	public void randomizeCells() {
+		int random = new Random().nextInt(2);
+		for(int i = 0; i<cells.length; i++) {
+			for(int j = 0; j<cells[i].length; j++) {
+				if(random == 0) {
+					cells[i][j].isAlive = false;
+				}
+				else if(random == 1) {
+					cells[i][j].isAlive = true;
+				}
+				random = new Random().nextInt(2);
+			}
+		}
 		// make each cell alive or dead randomly
 		repaint();
 	}
 	
 	public void clearCells() {
 		// set isAlive to false for all cells
+		for(int i = 0; i<cells.length; i++) {
+			for(int j = 0; j<cells[i].length; j++) {
+					cells[i][j].isAlive = false;
+			}
+		}
 		repaint();
 	}
 	
@@ -56,14 +77,21 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 	
 	@Override
 	public void paintComponent(Graphics g) {
+		for(int i = 0; i<cells.length; i++) {
+			for(int j = 0; j<cells[i].length; j++) {
+					cells[i][j].draw(g);
+			}
+		}
+
 		//iterate through the cells and draw them
+	
 	}
 	
 	//advances world one step
 	public void step() {
 		//initialize the numLivingNbors variable to be the same size as the cells
 		int[][] numLivingNbors;
-		
+		numLivingNbors = new int[cellsPerRow][cells[0].length];
 		//iterate through the cells and populate the numLivingNbors array with their neighbors
 		
 		
