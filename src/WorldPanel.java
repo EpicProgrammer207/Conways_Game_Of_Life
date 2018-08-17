@@ -23,7 +23,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		this.cellsPerRow = cpr;
 	
 		//calculate the cellSize
-	cellSize = 2;
+	cellSize = 1;
 		
 		//initialize the cells array
 		cells = new Cell[h][w];
@@ -78,7 +78,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 	@Override
 	public void paintComponent(Graphics g) {
 		for(int i = 0; i<cells.length; i++) {
-			for(int j = 0; j<cells[i].length; j++) {
+			for(int j = 0; j<cells.length; j++) {
 					cells[i][j].draw(g);
 			}
 		}
@@ -86,17 +86,42 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		//iterate through the cells and draw them
 	
 	}
+	int countNeighbs(Cell[][] graph, int x, int y) {
+		int row = x-1;
+		int col = y-1;
+		int numNeighbs = 0;
+		for(int i = 0; i<3; i++) {
+			for(int j = 0; j<3; j++) {
+				
+				if(row +i<0 || row+i>=graph.length) {
+					continue;
+				}
+					if(col + i<0 || col + i>=graph.length) {
+						continue;
+					}
+					else {
+						if(graph[row+i][col+i].isAlive) {
+							numNeighbs +=1;
+						}
+					}
+				}
+			}
+		return numNeighbs;
+		}
 	
 	//advances world one step
 	public void step() {
 		//initialize the numLivingNbors variable to be the same size as the cells
-		int[][] numLivingNbors;
-		numLivingNbors = new int[cellsPerRow][cells[0].length];
+	
 		//iterate through the cells and populate the numLivingNbors array with their neighbors
-		
-		
+		for(int i = 0; i<cells.length; i++) {
+			for(int j= 0; j<cells.length; j++) {
+				cells[i][j].liveOrDie(countNeighbs(cells, i, j));
+		}
+		}
 		repaint();
 	}
+	
 	
 	//returns an array list of the  8 or less neighbors of the 
 	//cell identified by x and y
@@ -129,7 +154,21 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		//get the location of the mouse
-		
+		int x = e.getX();
+		int y = e.getY();
+		for(int i = 0; i<cells.length; i++) {
+			for(int j = 0; j<cells.length; i++) {
+				
+				if(cells[i][j].getX() == x && cells[i][j].getY() == y) {
+					if(cells[i][j].isAlive) {
+						cells[i][j].isAlive = false;
+				}
+					else {
+						cells[i][j].isAlive = true;
+					}
+				}
+			}
+		}
 		//toggle the cell at that location to either alive or dead
 		//based on its current state
 		repaint();

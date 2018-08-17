@@ -52,20 +52,25 @@ public class ConwaysGameOfLife extends JPanel implements ActionListener{
 		window = new JFrame("The Walmart Version Of The Board Game");
 		//10/10 Jake Paul approves, WALMAAAAAAAAARRRRRRRRTTTTTTT!!!!!!!!!!!
 		inputPanel = new JPanel();
-		startStopButton = new JButton("LETS A GOOOOOOOOOOO");
-		randomizeButton = new JButton("RANDOMIZE STURF");
-		clearButton = new JButton("CAUSE A MASS EXTINCTION THAT WOULD TECHNICALLY DESTROY ALL LIVING BEINGS ON EARTH");
-		speedLabel= new JLabel("Sanic Sped %");
+		startStopButton = new JButton("Start");
+		randomizeButton = new JButton("Cuz Everyone Loves Randomization!");
+		clearButton = new JButton("Die");
+		speedLabel= new JLabel("Gotta Go Fast %");
+		startStopButton.addActionListener(this);
+		randomizeButton.addActionListener(this);
+		clearButton.addActionListener(this);
 		//cuzynot
-		speedField = new JTextField();
+		speedField = new JTextField("60");
+		speedField.setPreferredSize(new Dimension(40, 30));
 		gamePanel = new WorldPanel(700, 700, 350);
+		gamePanel.setVisible(true);
 		inputPanel.add(startStopButton);
 		inputPanel.add(randomizeButton);
 		inputPanel.add(clearButton);
 		inputPanel.add(speedLabel);
 		inputPanel.add(speedField);
-		window.add(inputPanel);
 		window.add(gamePanel);
+		window.add(inputPanel);
 		window.pack();
 		window.setVisible(true);
 		window.setDefaultCloseOperation(window.EXIT_ON_CLOSE);
