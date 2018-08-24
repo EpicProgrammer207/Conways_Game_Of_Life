@@ -15,7 +15,7 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 	private int cellSize;
 	private Cell[][] cells;
 	private Timer timer;
-	
+	//OwO
 	public WorldPanel(int w, int h, int cpr) {
 		setPreferredSize(new Dimension(w, h));
 		addMouseListener(this);
