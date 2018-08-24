@@ -23,10 +23,10 @@ public class WorldPanel extends JPanel implements MouseListener, ActionListener 
 		this.cellsPerRow = cpr;
 	
 		//calculate the cellSize
-	cellSize = 1;
+	cellSize = 5;
 		
 		//initialize the cells array
-		cells = new Cell[h][w];
+		cells = new Cell[h/10][w/10];
 		
 		//initialize each cell in the array
 		for(int i = 0; i<cells.length; i++) {

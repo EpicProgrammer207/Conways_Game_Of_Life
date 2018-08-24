@@ -69,7 +69,8 @@ public class ConwaysGameOfLife extends JPanel implements ActionListener{
 		inputPanel.add(clearButton);
 		inputPanel.add(speedLabel);
 		inputPanel.add(speedField);
-		window.add(gamePanel);
+		inputPanel.add(gamePanel);
+		//window.add(gamePanel);
 		window.add(inputPanel);
 		window.pack();
 		window.setVisible(true);
